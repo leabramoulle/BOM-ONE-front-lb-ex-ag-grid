@@ -1,0 +1,135 @@
+[
+    {
+        "id": 1,
+        "title": "Activity Management",
+        "icon": "/icons/icon_module_1.svg",
+        "description": "Manage and create activities and tasks for your team.",
+        "status": 1,
+        "redirectUrl": "http://localhost:5173/#1",
+        "order":  1,
+        "imagePath": "/images/img_module_1.jpg",
+        "imageB64": "",
+        "favorite": false
+    },
+    {
+        "id": 2,
+        "title": "Actuals",
+        "icon": "/icons/icon_module_2.svg",
+        "description": "Manage your internal and external ressources information.",
+        "status": 1,
+        "redirectUrl": "http://localhost:5173/#2",
+        "order":  2,
+        "imagePath": "/images/img_module_2.jpg",
+        "imageB64": "",
+        "favorite": true
+    },
+    {
+        "id": 3,
+        "title": "CPN List",
+        "icon": "/icons/icon_module_3.svg",
+        "description": "Search, consult and track the changes in the list of CPNs available.",
+        "status": 1,
+        "redirectUrl": "http://localhost:5173/#3",
+        "order":  3,
+        "imagePath": "/images/img_module_3.jpg",
+        "imageB64": "",
+        "favorite": false
+    },
+    {
+        "id": 4,
+        "title": "Ressource Allocation",
+        "icon": "/icons/icon_module_4.svg",
+        "description": "Book your ressources to different activities and tasks.",
+        "status": 2,
+        "redirectUrl": "http://localhost:5173/#4",
+        "order":  4,
+        "imagePath": "/images/img_module_4.jpg",
+        "imageB64": "",
+        "favorite": false
+    },
+    {
+        "id": 5,
+        "title": "Manage Ressources",
+        "icon": "/icons/icon_module_5.svg",
+        "description": "Manage your internal and external ressources information.",
+        "status": 2,
+        "redirectUrl": "http://localhost:5173/#5",
+        "order":  5,
+        "imagePath": "/images/img_module_5.jpg",
+        "imageB64": "",
+        "favorite": false
+    },
+    {
+        "id": 6,
+        "title": "Budget Management",
+        "icon": "/icons/icon_module_6.svg",
+        "description": "Manage and allocate budget to different teams and activities.",
+        "status": 2,
+        "redirectUrl": "http://localhost:5173/#6",
+        "order":  6,
+        "imagePath": "/images/img_module_6.jpg",
+        "imageB64": "",
+        "favorite": false
+    },
+    {
+        "id": 7,
+        "title": "Work Packages SC",
+        "icon": "/icons/icon_module_7.svg",
+        "description": "Manage the activities for the work packages.",
+        "status": 1,
+        "redirectUrl": "http://localhost:5173/#7",
+        "order":  7,
+        "imagePath": "/images/img_module_8.jpg",
+        "imageB64": "",
+        "favorite": false
+    },
+    {
+        "id": 8,
+        "title": "Request Management",
+        "icon": "/icons/icon_module_8.svg",
+        "description": "Validate, request and check budget activities.",
+        "status": 2,
+        "redirectUrl": "http://localhost:5173/#8",
+        "order":  8,
+        "imagePath": "/images/img_module_8.jpg",
+        "imageB64": "",
+        "favorite": true
+    },
+    {
+        "id": 9,
+        "title": "Job Requisitions",
+        "icon": "/icons/icon_module_9.svg",
+        "description": "Follow up the job requisition done.",
+        "status": 2,
+        "redirectUrl": "http://localhost:5173/#9",
+        "order":  9,
+        "imagePath": "/images/img_module_9.jpg",
+        "imageB64": "",
+        "favorite": false
+    },
+    {
+        "id": 10,
+        "title": "EPDB",
+        "icon": "/icons/icon_module_10.svg",
+        "description": "EPDB",
+        "status": 1,
+        "redirectUrl": "http://localhost:5173/#10",
+        "order": 10,
+        "imagePath": "/images/img_module_10.jpg",
+        "imageB64": "",
+        "favorite": false
+    },
+    {
+        "id": 11,
+        "title": "Dashboard",
+        "icon": "/icons/icon_module_10.svg",
+        "description": "Filter the data set to generate reports and visualisations.",
+        "status": 1,
+        "redirectUrl": "http://localhost:5173/#113",
+        "order": 11,
+        "imagePath": "/images/img_modules_10.jpg",
+        "imageB64": "",
+        "favorite": false
+    }
+
+]

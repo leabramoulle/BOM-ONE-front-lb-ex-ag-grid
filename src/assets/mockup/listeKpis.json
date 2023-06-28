@@ -1,0 +1,101 @@
+[
+    {
+        "id": 1,
+        "title": "Actuals",
+        "value": "1200 K€",
+        "status": 2,
+        "order": 1,
+        "favorite": false,
+        "imagePath": "src/assets/visuels/kpis/kpi-actuals.png"
+    },
+    {
+        "id": 2,
+        "title": "Already Assigned",
+        "value": "4862 K€",
+        "status": 2,
+        "order": 2,
+        "favorite": false,
+        "imagePath": "src/assets/visuels/kpis/kpi-jr.png"
+    },
+    {
+        "id": 3,
+        "title": "Allocation",
+        "value": "5.200.258 K€",
+        "status": 2,
+        "order": 3,
+        "favorite": false,
+        "imagePath": "src/assets/visuels/kpis/kpi-provisions.png"
+    },
+    {
+        "id": 4,
+        "title": "CPN Missbooking",
+        "value": "1200 K€",
+        "status": 2,
+        "order": 4,
+        "favorite": false,
+        "imagePath": "src/assets/visuels/kpis/kpi-cpn-missbooking.png"
+    },
+    {
+        "id": 5,
+        "title": "Ext Commitments",
+        "value": "3215 K€",
+        "status": 2,
+        "order": 5,
+        "favorite": false,
+        "imagePath": "src/assets/visuels/kpis/kpi-commitment-out.png"
+    },
+    {
+        "id": 6,
+        "title": "External Actuals",
+        "value": "58420 K€",
+        "status": 1,
+        "order": 6,
+        "favorite": false,
+        "imagePath": "src/assets/visuels/kpis/kpi-actuals-ext.png"
+    },
+    {
+        "id": 7,
+        "title": "Financial Gap",
+        "value": "-",
+        "status": 1,
+        "order": 7,
+        "favorite": false,
+        "imagePath": "src/assets/visuels/kpis/kpi-financial-gap.png"
+    },
+    {
+        "id": 8,
+        "title": "Internal Actuals",
+        "value": "1596 K€",
+        "status": 1,
+        "order": 8,
+        "favorite": false,
+        "imagePath": "src/assets/visuels/kpis/kpi-internal-actuals.png"
+    },
+    {
+        "id": 9,
+        "title": "title: kpi-late-po",
+        "value": "kpi-late-po",
+        "status": 2,
+        "order": 9,
+        "favorite": false,
+        "imagePath": "src/assets/visuels/kpis/kpi-late-po.png"
+    },
+    {
+        "id": 10,
+        "title": "Bottom-Up Cost",
+        "value": "7253 K€",
+        "status": 1,
+        "order": 10,
+        "favorite": false,
+        "imagePath": "src/assets/visuels/kpis/kpi-live-bottom-up.png"
+    },
+    {
+        "id": 11,
+        "title": "title: kpi-remaining-budget",
+        "value": "kpi-remaining-budget",
+        "status": 2,
+        "order": 11,
+        "favorite": false,
+        "imagePath": "src/assets/visuels/kpis/kpi-remaining-budget.png"
+    }
+]
