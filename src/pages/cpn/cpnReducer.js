@@ -4,6 +4,7 @@ export const cpnReducer = createSlice({
   name: 'cpn',
   initialState: {
     data: [],
+    columns:[]
   },
   reducers: {
 
