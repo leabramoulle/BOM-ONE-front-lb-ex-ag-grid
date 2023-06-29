@@ -7,6 +7,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
 import './cpn.scss';
 import _cpnList from "./../../assets/mockup/listeCPN.json";
 import ButtonCell from '../../components/dataGrid/buttonCell.component';
+import DataGridLoaderComponent from '../../components/dataGrid/dataGridLoader.component';
 
 var checkboxSelection = function (params) {
   // we put checkbox on the name if we are not doing grouping
@@ -82,8 +83,9 @@ function Cpn() {
       enableRowGroup: true,
       enablePivot: true,
       enableValue: true,
-        sortable: true,
-        resizable: true,
+      sortable: true,
+      resizable: true,
+      minWidth: 100,
       }));
   
 
@@ -92,27 +94,43 @@ function Cpn() {
     }, []);
   
     useEffect(() => {
-      setRowData(_cpnList);
+      setInterval(() => {
+        setRowData(_cpnList);
+       }, 2000);
+      //setRowData(_cpnList);
     }, []);
 
     const onGridReady = (e) => {
       const {api, columnApi} = gridRef.current;
     }
 
+    //edit pagination
     const onPageSizeChanged = useCallback(() => {
       var value = document.getElementById('page-size').value;
       setPaginationValue(value);
     }, []);
   
+    //export daata grid to csv function
     const onBtnExport = useCallback(() => {
       if (gridRef.current && gridRef.current.api) {
         gridRef.current.api.exportDataAsCsv();
       }
     }, []);
 
+    //row drag event
     const onDragEnd = (e) => {
       console.log(e.overNode.data)
     } 
+
+    const onFilterTextBoxChanged = useCallback(() => {
+      gridRef.current.api.setQuickFilter(
+        document.getElementById('filter-text-box').value
+      );
+    }, []);
+
+    const loadingCellRenderer = useMemo(() => {
+      return DataGridLoaderComponent;
+    }, []);
 
     return (
       <div className="ag-theme-alpine cpn-container">
@@ -126,9 +144,16 @@ function Cpn() {
           </select>
         </div>
         <button onClick={onBtnExport}>export</button>
+        <input
+            type="text"
+            id="filter-text-box"
+            placeholder="Filter..."
+            onInput={onFilterTextBoxChanged}
+          />
         <AgGridReact
             onGridReady={onGridReady}
             ref={gridRef}
+            loadingCellRenderer={loadingCellRenderer}
             rowData={rowData} // Row Data for Rows
             columnDefs={columnDefs} // Column Defs for Columns
             defaultColDef={defaultColDef} // Default Column Properties
@@ -146,6 +171,7 @@ function Cpn() {
             rowDragMultiRow={true}
             rowDragManaged={true}
             onRowDragEnd={onDragEnd}
+            cacheQuickFilter={true}
             />
       </div>
     );
