@@ -1,0 +1,13 @@
+@use './../../styles/var';
+
+.cpnPlus {
+    &-content {
+        color: var.$primary;
+        font-weight: 600;
+    }
+    &-icon {
+        cursor: pointer;
+        color: var.$primary;
+        margin-left: 1rem;
+    }
+}

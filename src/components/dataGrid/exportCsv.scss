@@ -1,0 +1,11 @@
+@use './../../styles/var';
+
+.export-csv-container {
+    display: flex;
+    cursor: pointer;
+    border-bottom: solid 1px var.$grey;
+}
+
+.export-csv-text {
+    margin-right: 0.5rem;
+}

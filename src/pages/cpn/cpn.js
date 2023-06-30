@@ -14,6 +14,11 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import './cpn.scss';
 import StatusCell from '../../components/dataGrid/statusCell';
+import CpnPlusCell from '../../components/dataGrid/cpnPlusCell.component';
+import PaginationDropDown from '../../components/dataGrid/paginationDopDown.component';
+import ExportCsv from '../../components/dataGrid/exportCsv.component';
+import FilterTextInput from '../../components/dataGrid/FilterTextInput.component';
+import FilterDropdownInput from '../../components/dataGrid/filterDropdownInput.component';
 
 library.add(faClock);
 
@@ -51,9 +56,7 @@ function Cpn() {
       {field: 'cpn_status_description', headerName: 'CPN Description',filter: true, pinned: 'left'},
       //{field: 'cpn_corporate_project_number_description', headerName: 'Status', width: 150, pinned: 'left' },
       {field: 'cpn_status', headerName: 'Status',  width: 150, pinned: 'left', key: 'cpn_status', cellRenderer: StatusCell},
-      {field: 'capit_marker_cpn', headerName: 'CPN', filter: true},
-      {field: 'type_of_funding_description', headerName: 'CPN', filter: true},
-      {field: 'capit_marker_cpn_description', headerName: 'CPN', filter: true},
+      {field: 'CPN+', width: 150, pinned: 'left', cellRenderer: CpnPlusCell},
       {field: 'financial_activity', headerName: 'Financial Activity', filter: true},
       {field: 'financial_activity_description', headerName: 'Financial Activity Description', filter: true},
       {field: 'financial_product', headerName: 'Financial Product', filter: true},
@@ -64,7 +67,10 @@ function Cpn() {
       {field: 'controlling_group', headerName: 'Controlling Group', filter: true},
       {field: 'controlling_group_description', headerName: 'Controlling Group Description', filter: true},
       {field: 'controlling_subgroup', headerName: 'Controlling Subgroup', filter: true},
-      {field: 'controlling_subgroup_description', headerName: 'Controlling Subgroup Description', filter: true}
+      {field: 'controlling_subgroup_description', headerName: 'Controlling Subgroup Description', filter: true},
+      {field: 'capit_marker_cpn', headerName: 'Capital Marker', filter: true},
+      {field: 'type_of_funding_description', headerName: 'Type of funding description', filter: true},
+      {field: 'capit_marker_cpn_description', headerName: 'Capital Marker Description', filter: true}
     ]);
     const [paginationValue, setPaginationValue] = useState(10); // Set rowData to Array of Objects, one Object per Row
     const [selectedStatusFilterValue, setSelectedStatusFilterValue] = useState('');
@@ -98,6 +104,10 @@ function Cpn() {
       sortable: true,
       resizable: true,
       minWidth: 100,
+      headerClass: function(params) {
+        // logic to return the correct class
+        return 'cpn-datagrid-header';
+      }
       //floatingFilter: true, //input filter in header column 
       }));
   
@@ -118,10 +128,16 @@ function Cpn() {
     }
 
     //edit pagination
-    const onPageSizeChanged = useCallback(() => {
+    const onPaginationChange = useCallback(() => {
       var value = document.getElementById('page-size').value;
       setPaginationValue(value);
     }, []);
+
+    const onFilterStatusChanged = useCallback(() => {
+      gridRef.current.api.setQuickFilter(
+        document.getElementById('dropdown').value
+      );
+  }, []);
   
     //export daata grid to csv function
     const onBtnExport = useCallback(() => {
@@ -141,12 +157,6 @@ function Cpn() {
       );
     }, []);
 
-  
-    const onFilterStatusChanged = useCallback(() => {
-      gridRef.current.api.setQuickFilter(
-        document.getElementById('dropdown').value
-      );
-  }, []);
 
     const loadingCellRenderer = useMemo(() => {
       return DataGridLoaderComponent;
@@ -155,30 +165,29 @@ function Cpn() {
     return (
       <>
         <div className="ag-theme-alpine cpn-container">
-          <div className="example-header">
-            Page Size:
-            <select onChange={onPageSizeChanged} id="page-size">
-              <option value="10">10</option>
-              <option value="100">15</option>
-              <option value="500">20</option>
-              <option value="1000">50</option>
-            </select>
-          </div>
-          <button onClick={onBtnExport}>export</button>
-          <input
-              type="text"
-              id="filter-text-box"
-              placeholder="Filter..."
-              onInput={onFilterTextBoxChanged}
+          <div className='cpn-header'>
+            <div className='flex-row'>
+              <FilterTextInput 
+                onFilterTextBoxChanged={onFilterTextBoxChanged} 
+              />
+              <select 
+                  className='dropdown-input'
+                  value={selectedStatusFilterValue} 
+                  onChange={(e) => {
+                      setSelectedStatusFilterValue(e.target.value);
+                      console.log(selectedStatusFilterValue);
+                      onFilterStatusChanged()
+                  }} 
+                  id="dropdown">
+                      <option value="SHOWALL">status: Show All</option>
+                      <option value="REL">status: REL</option>
+                      <option value="TECO">status: TECO</option>
+              </select>
+            </div>
+            <ExportCsv 
+              onBtnExport={onBtnExport}
             />
-          <select value={selectedStatusFilterValue} onChange={(e) => {
-            setSelectedStatusFilterValue(e.target.value);
-            console.log(selectedStatusFilterValue);
-            onFilterStatusChanged()}} id="dropdown">
-            <option value="SHOWALL">Show All</option>
-            <option value="REL">REL</option>
-            <option value="TECO">TECO</option>
-          </select>
+          </div>
           <AgGridReact
               onGridReady={onGridReady}
               ref={gridRef}
@@ -203,6 +212,9 @@ function Cpn() {
               cacheQuickFilter={true}
               suppressMenuHide={true}
               />
+          <PaginationDropDown 
+            onPaginationChange={onPaginationChange}
+          />
         </div>
       </>
     );
