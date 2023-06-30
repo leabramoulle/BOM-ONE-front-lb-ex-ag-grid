@@ -5,6 +5,7 @@ import './homePage.scss';
 function HomePage() {
   return (
     <div className="main-container">
+      <h1 className='main-title'>CPN List</h1>
       <Cpn />
     </div>
   );

@@ -1,7 +1,14 @@
+@use './../../styles/var';
+
 .cpn {
     &-container {
-        width:95%;
+        width:100%;
         height: 55%;
         margin:auto;
     }
 }
+
+.ag-icon::before {
+    color: var.$primary;
+    cursor: pointer;
+  }

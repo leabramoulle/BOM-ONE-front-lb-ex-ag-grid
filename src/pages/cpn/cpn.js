@@ -4,11 +4,18 @@ import React, { useState, useRef, useEffect, useMemo, useCallback} from 'react';
 import { AgGridReact } from 'ag-grid-react'; // the AG Grid React Component
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
-import './cpn.scss';
 import _cpnList from "./../../assets/mockup/listeCPN.json";
 import ButtonCell from '../../components/dataGrid/buttonCell.component';
 import CpnCell from '../../components/dataGrid/cpnCell.component';
 import DataGridLoaderComponent from '../../components/dataGrid/dataGridLoader.component';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
+import './cpn.scss';
+import StatusCell from '../../components/dataGrid/statusCell';
+
+library.add(faClock);
 
 var checkboxSelection = function (params) {
   // we put checkbox on the name if we are not doing grouping
@@ -32,7 +39,8 @@ function Cpn() {
         headerCheckboxSelection: headerCheckboxSelection,
         pinned: 'left',
         cellRenderer: CpnCell,
-        wrapText: true 
+        wrapText: true,
+        cellStyle: {fontWeight: 600}
       },
       {
         field: 'Action',
@@ -42,7 +50,7 @@ function Cpn() {
       },
       {field: 'cpn_status_description', headerName: 'CPN Description',filter: true, pinned: 'left'},
       //{field: 'cpn_corporate_project_number_description', headerName: 'Status', width: 150, pinned: 'left' },
-      {field: 'cpn_status', headerName: 'Status',  width: 150, pinned: 'left', key: 'cpn_status'},
+      {field: 'cpn_status', headerName: 'Status',  width: 150, pinned: 'left', key: 'cpn_status', cellRenderer: StatusCell},
       {field: 'capit_marker_cpn', headerName: 'CPN', filter: true},
       {field: 'type_of_funding_description', headerName: 'CPN', filter: true},
       {field: 'capit_marker_cpn_description', headerName: 'CPN', filter: true},
@@ -145,55 +153,58 @@ function Cpn() {
     }, []);
 
     return (
-      <div className="ag-theme-alpine cpn-container">
-        <div className="example-header">
-          Page Size:
-          <select onChange={onPageSizeChanged} id="page-size">
-            <option value="10">10</option>
-            <option value="100">15</option>
-            <option value="500">20</option>
-            <option value="1000">50</option>
-          </select>
-        </div>
-        <button onClick={onBtnExport}>export</button>
-        <input
-            type="text"
-            id="filter-text-box"
-            placeholder="Filter..."
-            onInput={onFilterTextBoxChanged}
-          />
-        <select value={selectedStatusFilterValue} onChange={(e) => {
-          setSelectedStatusFilterValue(e.target.value);
-          console.log(selectedStatusFilterValue);
-          onFilterStatusChanged()}} id="dropdown">
-           <option value="SHOWALL">Show All</option>
-           <option value="REL">REL</option>
-           <option value="TECO">TECO</option>
-        </select>
-        <AgGridReact
-            onGridReady={onGridReady}
-            ref={gridRef}
-            loadingCellRenderer={loadingCellRenderer}
-            rowData={rowData} // Row Data for Rows
-            columnDefs={columnDefs} // Column Defs for Columns
-            defaultColDef={defaultColDef} // Default Column Properties
-            onCellClicked={cellClickedListener} 
-            groupSelectsChildren={true}
-            pivotPanelShow='always'
-            pagination={true}
-            paginationPageSize={paginationValue}
-            autoGroupColumnDef={autoGroupColumnDef}
-            suppressRowClickSelection={true}
-            animateRows={true} 
-            rowGroupPanelShow='always'
-            rowSelection='multiple' // Options - allows click selection of rows
-            rowDragEntireRow={true}
-            rowDragMultiRow={true}
-            rowDragManaged={true}
-            onRowDragEnd={onDragEnd}
-            cacheQuickFilter={true}
+      <>
+        <div className="ag-theme-alpine cpn-container">
+          <div className="example-header">
+            Page Size:
+            <select onChange={onPageSizeChanged} id="page-size">
+              <option value="10">10</option>
+              <option value="100">15</option>
+              <option value="500">20</option>
+              <option value="1000">50</option>
+            </select>
+          </div>
+          <button onClick={onBtnExport}>export</button>
+          <input
+              type="text"
+              id="filter-text-box"
+              placeholder="Filter..."
+              onInput={onFilterTextBoxChanged}
             />
-      </div>
+          <select value={selectedStatusFilterValue} onChange={(e) => {
+            setSelectedStatusFilterValue(e.target.value);
+            console.log(selectedStatusFilterValue);
+            onFilterStatusChanged()}} id="dropdown">
+            <option value="SHOWALL">Show All</option>
+            <option value="REL">REL</option>
+            <option value="TECO">TECO</option>
+          </select>
+          <AgGridReact
+              onGridReady={onGridReady}
+              ref={gridRef}
+              loadingCellRenderer={loadingCellRenderer}
+              rowData={rowData} // Row Data for Rows
+              columnDefs={columnDefs} // Column Defs for Columns
+              defaultColDef={defaultColDef} // Default Column Properties
+              onCellClicked={cellClickedListener} 
+              groupSelectsChildren={true}
+              pivotPanelShow='always'
+              pagination={true}
+              paginationPageSize={paginationValue}
+              autoGroupColumnDef={autoGroupColumnDef}
+              suppressRowClickSelection={true}
+              animateRows={true} 
+              rowGroupPanelShow='always'
+              rowSelection='multiple' // Options - allows click selection of rows
+              rowDragEntireRow={true}
+              rowDragMultiRow={true}
+              rowDragManaged={true}
+              onRowDragEnd={onDragEnd}
+              cacheQuickFilter={true}
+              suppressMenuHide={true}
+              />
+        </div>
+      </>
     );
 }
 
