@@ -1,0 +1,14 @@
+@use './../../styles/var';
+
+.btn-cell {
+    &-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    &-icon {
+        cursor: pointer;
+        color: var.$primary;
+    }
+}

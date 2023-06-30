@@ -31,7 +31,8 @@ function Cpn() {
         checkboxSelection: checkboxSelection,
         headerCheckboxSelection: headerCheckboxSelection,
         pinned: 'left',
-        cellRenderer: CpnCell
+        cellRenderer: CpnCell,
+        wrapText: true 
       },
       {
         field: 'Action',

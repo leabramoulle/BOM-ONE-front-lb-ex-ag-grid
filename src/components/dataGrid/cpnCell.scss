@@ -1,0 +1,19 @@
+@use './../../styles/var';
+
+.cpn-cell {
+    &-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-top: -1rem;
+    }
+
+    &-icon {
+        cursor: pointer;
+        color: var.$primary;
+    }
+}
+
+.ag-checkbox-input-wrapper {
+    margin-top: -1rem;
+}
