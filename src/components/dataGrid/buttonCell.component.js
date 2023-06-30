@@ -1,16 +1,15 @@
 import React from 'react';
 
-export default (props) => {
-  const cellValue = props.valueFormatted ? props.valueFormatted : props.value;
+export default (p) => {
+  const cellValue = p.valueFormatted ? p.valueFormatted : p.value;
 
   const buttonClicked = () => {
     console.log("cell clicked")
   };
 
   return (
-    <div>
-      <div>{cellValue}</div>
+    <>
       <button onClick={() => buttonClicked}>Action</button>
-    </div>
+    </>
   );
 };

@@ -7,6 +7,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
 import './cpn.scss';
 import _cpnList from "./../../assets/mockup/listeCPN.json";
 import ButtonCell from '../../components/dataGrid/buttonCell.component';
+import CpnCell from '../../components/dataGrid/cpnCell.component';
 import DataGridLoaderComponent from '../../components/dataGrid/dataGridLoader.component';
 
 var checkboxSelection = function (params) {
@@ -30,6 +31,7 @@ function Cpn() {
         checkboxSelection: checkboxSelection,
         headerCheckboxSelection: headerCheckboxSelection,
         pinned: 'left',
+        cellRenderer: CpnCell
       },
       {
         field: 'Action',
@@ -38,8 +40,8 @@ function Cpn() {
         cellRenderer: ButtonCell
       },
       {field: 'cpn_status_description', headerName: 'CPN Description',filter: true, pinned: 'left'},
-      {field: 'cpn_corporate_project_number_description', headerName: 'Status', width: 150, pinned: 'left' },
-      {field: 'cpn_status', headerName: 'Status',  width: 150, pinned: 'left' },
+      //{field: 'cpn_corporate_project_number_description', headerName: 'Status', width: 150, pinned: 'left' },
+      {field: 'cpn_status', headerName: 'Status',  width: 150, pinned: 'left', key: 'cpn_status'},
       {field: 'capit_marker_cpn', headerName: 'CPN', filter: true},
       {field: 'type_of_funding_description', headerName: 'CPN', filter: true},
       {field: 'capit_marker_cpn_description', headerName: 'CPN', filter: true},
@@ -56,7 +58,8 @@ function Cpn() {
       {field: 'controlling_subgroup_description', headerName: 'Controlling Subgroup Description', filter: true}
     ]);
     const [paginationValue, setPaginationValue] = useState(10); // Set rowData to Array of Objects, one Object per Row
-  
+    const [selectedStatusFilterValue, setSelectedStatusFilterValue] = useState('');
+
     const autoGroupColumnDef = useMemo(() => {
       return {
         headerName: 'Group',
@@ -86,6 +89,7 @@ function Cpn() {
       sortable: true,
       resizable: true,
       minWidth: 100,
+      //floatingFilter: true, //input filter in header column 
       }));
   
 
@@ -96,7 +100,7 @@ function Cpn() {
     useEffect(() => {
       setInterval(() => {
         setRowData(_cpnList);
-       }, 2000);
+       }, 1000);
       //setRowData(_cpnList);
     }, []);
 
@@ -128,6 +132,13 @@ function Cpn() {
       );
     }, []);
 
+  
+    const onFilterStatusChanged = useCallback(() => {
+      gridRef.current.api.setQuickFilter(
+        document.getElementById('dropdown').value
+      );
+  }, []);
+
     const loadingCellRenderer = useMemo(() => {
       return DataGridLoaderComponent;
     }, []);
@@ -150,6 +161,14 @@ function Cpn() {
             placeholder="Filter..."
             onInput={onFilterTextBoxChanged}
           />
+        <select value={selectedStatusFilterValue} onChange={(e) => {
+          setSelectedStatusFilterValue(e.target.value);
+          console.log(selectedStatusFilterValue);
+          onFilterStatusChanged()}} id="dropdown">
+           <option value="SHOWALL">Show All</option>
+           <option value="REL">REL</option>
+           <option value="TECO">TECO</option>
+        </select>
         <AgGridReact
             onGridReady={onGridReady}
             ref={gridRef}
@@ -159,13 +178,13 @@ function Cpn() {
             defaultColDef={defaultColDef} // Default Column Properties
             onCellClicked={cellClickedListener} 
             groupSelectsChildren={true}
-            rowGroupPanelShow='always'
             pivotPanelShow='always'
             pagination={true}
             paginationPageSize={paginationValue}
             autoGroupColumnDef={autoGroupColumnDef}
             suppressRowClickSelection={true}
             animateRows={true} 
+            rowGroupPanelShow='always'
             rowSelection='multiple' // Options - allows click selection of rows
             rowDragEntireRow={true}
             rowDragMultiRow={true}
