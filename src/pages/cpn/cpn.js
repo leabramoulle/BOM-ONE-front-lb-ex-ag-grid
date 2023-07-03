@@ -32,9 +32,11 @@ var headerCheckboxSelection = function (params) {
   return params.columnApi.getRowGroupColumns().length === 0;
 };
 
+
 function Cpn() {
     const gridRef = useRef();
     const [rowData, setRowData] = useState();
+    
     const [columnDefs, setColumnDefs] = useState([
       {
         field: 'cpn_corporate_project_number',
@@ -56,7 +58,12 @@ function Cpn() {
       {field: 'cpn_status_description', headerName: 'CPN Description',filter: true, pinned: 'left'},
       //{field: 'cpn_corporate_project_number_description', headerName: 'Status', width: 150, pinned: 'left' },
       {field: 'cpn_status', headerName: 'Status',  width: 150, pinned: 'left', key: 'cpn_status', cellRenderer: StatusCell},
-      {field: 'CPN+', width: 150, pinned: 'left', cellRenderer: CpnPlusCell},
+      {
+        field: 'CPN+', 
+        width: 150, 
+        pinned: 'left', 
+        cellRenderer: CpnPlusCell,
+      },
       {field: 'financial_activity', headerName: 'Financial Activity', filter: true},
       {field: 'financial_activity_description', headerName: 'Financial Activity Description', filter: true},
       {field: 'financial_product', headerName: 'Financial Product', filter: true},
@@ -110,7 +117,12 @@ function Cpn() {
       }
       //floatingFilter: true, //input filter in header column 
       }));
+
+
   
+    const frameworkComponents = {
+      expandCellRenderer: CpnPlusCell,
+    };
 
     const cellClickedListener = useCallback( event => {
       console.log('cellClicked', event);
@@ -211,6 +223,7 @@ function Cpn() {
               onRowDragEnd={onDragEnd}
               cacheQuickFilter={true}
               suppressMenuHide={true}
+              //suppressPaginationPanel={true}
               />
           <PaginationDropDown 
             onPaginationChange={onPaginationChange}
